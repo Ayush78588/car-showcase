@@ -1,0 +1,11 @@
+# Output directory
+dist/
+
+# Parcel cache
+.parcel-cache/
+
+# Dependency folder
+node_modules/
+
+
+
