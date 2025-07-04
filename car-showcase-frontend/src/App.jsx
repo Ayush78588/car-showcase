@@ -1,14 +1,9 @@
+
 import CarCard from "./components/CarCard";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
-import { useState } from "react";
-
-
-
-
-
-
+import { useState, useEffect } from "react";
 
 
 
@@ -16,206 +11,12 @@ import { useState } from "react";
 function App() {
 
   let [carName, setCarName] = useState('');
-  let [filteredCarData, setFilteredCarData] = useState([
-    {
-      name: 'Audi',
-      model: 'A6 Premium Plus',
-      price: '5500000',
-      imgsrc: 'https://plus.unsplash.com/premium_photo-1737182592549-0c83f93e2903?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-    },
-    {
-      name: 'Toyota',
-      model: 'Camry Hybrid',
-      price: '950000',
-      imgsrc: 'https://i.ytimg.com/vi/zEr-mm8OSGo/sddefault.jpg'
-    },
-    {
-      name: 'Lamborghini',
-      model: 'Huracán STO',
-      price: '50000000',
-      imgsrc: 'https://images.moneycontrol.com/static-mcnews/2022/06/LamboF.jpg?impolicy=website&width=1600&height=900'
-    },
-    {
-      name: 'Mercedes-Benz',
-      model: 'C-Class AMG Line',
-      price: '5000000',
-      imgsrc: 'https://images.unsplash.com/photo-1614200179396-2bdb77ebf81b?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bHV4dXJ5JTIwY2FyfGVufDB8fDB8fHww'
-    },
-    {
-      name: 'BMW',
-      model: 'M5 Competition 2025',
-      price: '9870000',
-      imgsrc: 'https://stimg.cardekho.com/images/carexteriorimages/930x620/BMW/M5-2025/11821/1719462197562/front-left-side-47.jpg'
-    },
-    {
-      name: 'Lamborghini',
-      model: 'Revuelto',
-      price: '86000000',
-      imgsrc: 'https://cimg2.ibsrv.net/ibimg/hgm/1920x1080-1/100/885/lamborghini-revuelto_100885578.jpg'
-    },
-    {
-      name: 'Hyundai',
-      model: 'Verna SX(O)',
-      price: '750000',
-      imgsrc: 'https://etimg.etb2bimg.com/thumb/msid-107684843,width-1200,height-900,resizemode-4/.jpg'
-    },
-    {
-      name: 'Porsche',
-      model: '911 Carrera',
-      price: '15500000',
-      imgsrc: 'https://c4.wallpaperflare.com/wallpaper/429/737/124/car-1920x1080-cool-wallpaper-preview.jpg'
-    },
-    {
-      name: 'Jaguar',
-      model: 'XF R-Dynamic',
-      price: '5870000',
-      imgsrc: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_fpqDesW6xzozQdgX7vLYVInNXkIFuHXbQUlCGOd1LJXEOkO_V3IfqyA4Klt5r6rh_H4&usqp=CAU'
-    },
-    {
-      name: 'Toyota',
-      model: 'Mirai Concept 2019',
-      price: '5900000',
-      imgsrc: 'https://w0.peakpx.com/wallpaper/64/135/HD-wallpaper-toyota-mirai-concept-2019-cars-luxury-cars-2019-toyota-mirai-japanese-cars-toyota-thumbnail.jpg'
-    },
-    {
-      name: 'Nissan',
-      model: 'GT-R Premium',
-      price: '6000000',
-      imgsrc: 'https://media.istockphoto.com/id/170450723/photo/a-silver-sports-car-on-black-tile-floor.jpg?s=612x612&w=0&k=20&c=B5BRnhnYzfOf2BE4301r8S7h56GshGUMVAy8QnoKP0Y='
-    },
-    {
-      name: 'Audi',
-      model: 'A6 Premium Plus',
-      price: '5500000',
-      imgsrc: 'https://plus.unsplash.com/premium_photo-1737182592549-0c83f93e2903?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-    },
-    {
-      name: 'Toyota',
-      model: 'Camry Hybrid',
-      price: '950000',
-      imgsrc: 'https://i.ytimg.com/vi/zEr-mm8OSGo/sddefault.jpg'
-    },
-    {
-      name: 'Lamborghini',
-      model: 'Huracán STO',
-      price: '50000000',
-      imgsrc: 'https://images.moneycontrol.com/static-mcnews/2022/06/LamboF.jpg?impolicy=website&width=1600&height=900'
-    },
-    {
-      name: 'Mercedes-Benz',
-      model: 'C-Class AMG Line',
-      price: '5000000',
-      imgsrc: 'https://images.unsplash.com/photo-1614200179396-2bdb77ebf81b?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bHV4dXJ5JTIwY2FyfGVufDB8fDB8fHww'
-    },
-    {
-      name: 'BMW',
-      model: 'M5 Competition 2025',
-      price: '9870000',
-      imgsrc: 'https://stimg.cardekho.com/images/carexteriorimages/930x620/BMW/M5-2025/11821/1719462197562/front-left-side-47.jpg'
-    }
-  ]);
-  let [carData, setCarData] = useState([
-    {
-      name: 'Audi',
-      model: 'A6 Premium Plus',
-      price: '5500000',
-      imgsrc: 'https://plus.unsplash.com/premium_photo-1737182592549-0c83f93e2903?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-    },
-    {
-      name: 'Toyota',
-      model: 'Camry Hybrid',
-      price: '950000',
-      imgsrc: 'https://i.ytimg.com/vi/zEr-mm8OSGo/sddefault.jpg'
-    },
-    {
-      name: 'Lamborghini',
-      model: 'Huracán STO',
-      price: '50000000',
-      imgsrc: 'https://images.moneycontrol.com/static-mcnews/2022/06/LamboF.jpg?impolicy=website&width=1600&height=900'
-    },
-    {
-      name: 'Mercedes-Benz',
-      model: 'C-Class AMG Line',
-      price: '5000000',
-      imgsrc: 'https://images.unsplash.com/photo-1614200179396-2bdb77ebf81b?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bHV4dXJ5JTIwY2FyfGVufDB8fDB8fHww'
-    },
-    {
-      name: 'BMW',
-      model: 'M5 Competition 2025',
-      price: '9870000',
-      imgsrc: 'https://stimg.cardekho.com/images/carexteriorimages/930x620/BMW/M5-2025/11821/1719462197562/front-left-side-47.jpg'
-    },
-    {
-      name: 'Lamborghini',
-      model: 'Revuelto',
-      price: '86000000',
-      imgsrc: 'https://cimg2.ibsrv.net/ibimg/hgm/1920x1080-1/100/885/lamborghini-revuelto_100885578.jpg'
-    },
-    {
-      name: 'Hyundai',
-      model: 'Verna SX(O)',
-      price: '750000',
-      imgsrc: 'https://etimg.etb2bimg.com/thumb/msid-107684843,width-1200,height-900,resizemode-4/.jpg'
-    },
-    {
-      name: 'Porsche',
-      model: '911 Carrera',
-      price: '15500000',
-      imgsrc: 'https://c4.wallpaperflare.com/wallpaper/429/737/124/car-1920x1080-cool-wallpaper-preview.jpg'
-    },
-    {
-      name: 'Jaguar',
-      model: 'XF R-Dynamic',
-      price: '5870000',
-      imgsrc: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_fpqDesW6xzozQdgX7vLYVInNXkIFuHXbQUlCGOd1LJXEOkO_V3IfqyA4Klt5r6rh_H4&usqp=CAU'
-    },
-    {
-      name: 'Toyota',
-      model: 'Mirai Concept 2019',
-      price: '5900000',
-      imgsrc: 'https://w0.peakpx.com/wallpaper/64/135/HD-wallpaper-toyota-mirai-concept-2019-cars-luxury-cars-2019-toyota-mirai-japanese-cars-toyota-thumbnail.jpg'
-    },
-    {
-      name: 'Nissan',
-      model: 'GT-R Premium',
-      price: '6000000',
-      imgsrc: 'https://media.istockphoto.com/id/170450723/photo/a-silver-sports-car-on-black-tile-floor.jpg?s=612x612&w=0&k=20&c=B5BRnhnYzfOf2BE4301r8S7h56GshGUMVAy8QnoKP0Y='
-    },
-    {
-      name: 'Audi',
-      model: 'A6 Premium Plus',
-      price: '5500000',
-      imgsrc: 'https://plus.unsplash.com/premium_photo-1737182592549-0c83f93e2903?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-    },
-    {
-      name: 'Toyota',
-      model: 'Camry Hybrid',
-      price: '950000',
-      imgsrc: 'https://i.ytimg.com/vi/zEr-mm8OSGo/sddefault.jpg'
-    },
-    {
-      name: 'Lamborghini',
-      model: 'Huracán STO',
-      price: '50000000',
-      imgsrc: 'https://images.moneycontrol.com/static-mcnews/2022/06/LamboF.jpg?impolicy=website&width=1600&height=900'
-    },
-    {
-      name: 'Mercedes-Benz',
-      model: 'C-Class AMG Line',
-      price: '5000000',
-      imgsrc: 'https://images.unsplash.com/photo-1614200179396-2bdb77ebf81b?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bHV4dXJ5JTIwY2FyfGVufDB8fDB8fHww'
-    },
-    {
-      name: 'BMW',
-      model: 'M5 Competition 2025',
-      price: '9870000',
-      imgsrc: 'https://stimg.cardekho.com/images/carexteriorimages/930x620/BMW/M5-2025/11821/1719462197562/front-left-side-47.jpg'
-    }
-  ]);
+  let [filteredCarData, setFilteredCarData] = useState([]);
+  let [carData, setCarData] = useState([]);
 
 
   function displayCars(input) {
-    const filtered= carData.filter((ele, index) => {
+    const filtered = carData.filter((ele, index) => {
       if (input === '') {
         return true;
       }
@@ -224,29 +25,44 @@ function App() {
     setFilteredCarData(filtered);
 
   }
+
   function handleChange(e) {
     const input = e.target.value;
     setCarName(input);
-   displayCars(input);
-    
+    displayCars(input);
+
   }
 
+  async function fetchCarData() {
+    let response = await (await fetch("http://localhost:3000/api/car/cardetails")).json();
+    console.log(response);
+    setFilteredCarData(response);
+    setCarData(response);
+  }
 
+  useEffect(() => {
+    fetchCarData();
+  }, []);
 
+  
   return <>
     <Header />
-    <div id="searchCont">
-      <input id="carName" type="text" value={carName} onChange={handleChange} placeholder="Search cars by Name"/>
-    </div>
-    <div id="carcardcont">
-      {
-        filteredCarData.map((car, index) => {
-          return <CarCard name={car.name} price={car.price} model={car.model} key={index} imgsrc={car.imgsrc} />
-        })
-      }
 
+    <div id="searchCont">
+      <input className="search" type="text" value={carName} onChange={handleChange} placeholder="Search cars by Name" />
     </div>
-    {/* <Hero /> */}
+
+    {
+      carData.length === 0 ? <p className="loading">Loading........</p> :
+        (<div id="carcardcont">
+          {
+            filteredCarData.map((car, index) => {
+              return <CarCard name={car.name} price={car.price} model={car.model} key={index} imgsrc={car.imgsrc} />
+            })
+          }
+        </div>)
+    }
+
     <Footer />
   </>
 }

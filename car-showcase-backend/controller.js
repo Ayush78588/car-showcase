@@ -35,25 +35,31 @@ async function handleRegistration(req, res) {
     }
 }
 
-async function handleLogin(req,res){
-    let {emailId, password} = req.body;
+async function handleLogin(req, res) {
+    try {
+        let { emailId, password } = req.body;
 
-    let existingUser = await User.findOne({emailId});
-    if(!existingUser){
-        return res.json('user does not exist');
+        let existingUser = await User.findOne({ emailId });
+        if (!existingUser) {
+            return res.json({ error: "user does not exist" });
+        }
+
+        let isMatch = await bcrypt.compare(password, existingUser.password);
+        if (!isMatch) {
+            return res.json({ error: "Invalid password" });
+        }
+
+        const token = jwt.sign({ emailId }, SECRET_KEY);
+        res.cookie(token);
+        console.log(token);
+
+        res.json({ msg: "Login Successfull, cookie sent" });
+        
+    } catch (error) {
+        console.log(error.message);
+        res.json({ error: error.message });
+
     }
-
-    let isMatch = await bcrypt.compare(password, existingUser.password);
-    if(!isMatch){
-        return res.json({error: "Invalid password"});
-    }
-
-    const token = jwt.sign({emailId}, SECRET_KEY);
-    res.cookie(token);
-    console.log(token);
-
-    res.json({msg: "Login Successfull, cookie sent"});
-
 
 }
 
