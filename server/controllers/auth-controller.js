@@ -1,4 +1,4 @@
-const User = require('./models/User');
+const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
 
@@ -41,12 +41,12 @@ async function handleLogin(req, res) {
 
         let existingUser = await User.findOne({ emailId });
         if (!existingUser) {
-            return res.json({ error: "user does not exist" });
+            return res.status(404).json({ error: "user does not exist" });
         }
 
         let isMatch = await bcrypt.compare(password, existingUser.password);
         if (!isMatch) {
-            return res.json({ error: "Invalid password" });
+            return res.status(400).json({ error: "Invalid password" });
         }
 
         const token = jwt.sign({ emailId }, SECRET_KEY);
