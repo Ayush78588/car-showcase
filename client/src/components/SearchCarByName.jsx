@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import ShimmerUI from "./ShimmerUI";
 import CarCard from "./CarCard";
-
+import { BACKEND_URL } from "../utils/constant";
 
 
 
@@ -29,7 +29,7 @@ function SearchCarByName() {
     }
 
     async function fetchCarData() {
-        let response = await (await fetch("http://localhost:3000/api/car/cardetails")).json();
+        let response = (await (await fetch(`${BACKEND_URL}/api/car/cardetails`)).json());
         console.log(response);
         setFilteredCarData(response);
         setCarData(response);

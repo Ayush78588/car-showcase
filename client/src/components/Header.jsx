@@ -1,10 +1,38 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
+import toast, { Toaster } from 'react-hot-toast';
+import { BACKEND_URL } from "../utils/constant";
+import { log } from "util";
 
 function Header() {
 
-   const data = useContext(UserContext);
+    const { user, setUser, isAuthenticated, setIsAuthenticated } = useContext(UserContext);
+
+
+    async function handleLogout() {
+        try {
+            const response = await fetch(`${BACKEND_URL}/api/auth/user/logout`, {
+                method: "GET",
+                credentials: "include"
+            });
+            console.log('Response came.....');
+            
+            const data = await response.json();
+            if (response.ok) {
+                console.log('Running response.ok segment');
+                toast.success(data.msg);
+                setUser(null);
+                setIsAuthenticated(false);
+            } else {
+                toast.error(data?.error || 'Something went wrong.');
+            }
+
+        } catch (error) {
+            toast.error("Internal server error");
+        }
+    }
+
 
 
     return <div>
@@ -12,12 +40,21 @@ function Header() {
             <div id="logo">LOGO</div>
             <ul>
                 <Link className="link" to={"/"}><li>Home</li></Link>
-                <Link className="link" to={"/user/car/add"}><li>AddCar</li></Link>
+                <Link className="link" to="/user/car/add"><li>AddCar</li></Link>
                 <Link className="link" to="/AboutUs"><li>AboutUs</li></Link>
-                <Link className="link" to={"/user/login"}><li>Login</li></Link>
-                <li>Welcome, {data.name}</li>
+
+                {
+                    isAuthenticated ?
+                        (<button id="logout-btn" onClick={handleLogout}>Logout</button>)
+                        :
+                        (<Link className="link" to={"/user/login"}><li>Login</li></Link>)
+                }
+                {
+                    isAuthenticated && <li>Welcome, {user.fullName}</li>
+                }
             </ul>
         </nav>
+        <Toaster />
     </div>
 }
 

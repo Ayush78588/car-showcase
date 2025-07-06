@@ -6,7 +6,6 @@ const SECRET_KEY = process.env.SECRET_KEY;
 
 
 
-
 async function handleRegistration(req, res) {
     try {
         let { fullName, age, emailId, password, mobileNum } = req.body;
@@ -35,6 +34,8 @@ async function handleRegistration(req, res) {
     }
 }
 
+
+
 async function handleLogin(req, res) {
     try {
         let { emailId, password } = req.body;
@@ -50,11 +51,14 @@ async function handleLogin(req, res) {
         }
 
         const token = jwt.sign({ emailId }, SECRET_KEY);
-        res.cookie(token);
-        console.log(token);
+        res.cookie('accessToken', token, {
+            httpOnly: true,
+            sameSite: 'Lax',
+            secure: false,
+            maxAge: 24 * 60 * 60 * 1000 // 1 day
+        });
 
-        res.json({ msg: "Login Successfull, cookie sent" });
-        
+        res.json({ msg: "Login Successfull, cookie sent", user: existingUser });
     } catch (error) {
         console.log(error.message);
         res.json({ error: error.message });
@@ -65,7 +69,34 @@ async function handleLogin(req, res) {
 
 
 
+function handleLogout(req, res) {
+
+    console.log('Running logout fxn.');
+
+    res.clearCookie('accessToken', {
+        httpOnly: true,
+        secure: false,
+        sameSite: 'Lax'
+    });
+    console.log('Cookie cleared');
+
+
+    res.status(200).json({ msg: 'LoggedOut Successfully' });
+}
+
+
+
+function handleMeReq(req, res) {
+    console.log(req.user);
+
+    res.status(200).json({ user: req.user });
+}
+
+
+
 module.exports = {
     handleRegistration,
-    handleLogin
+    handleLogin,
+    handleLogout,
+    handleMeReq
 }

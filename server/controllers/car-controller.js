@@ -27,8 +27,8 @@ async function addCarDetails(req, res) {
 
 
         const newCar = await Car.create({ name, model, price, imgsrc });
-
-        res.status(201).json({ message: "Car added", car: newCar });
+        console.log(999);
+        res.status(201).json({ msg: "Car added" });
     } catch (error) {
         console.error("Error:", error);
         res.status(500).json({ error: "Failed to add car" });

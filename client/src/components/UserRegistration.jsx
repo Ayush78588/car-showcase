@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import {useState} from 'react';
-
+import { BACKEND_URL } from "../utils/constant";
 
 function UserRegistration(){
 
@@ -13,7 +13,7 @@ function UserRegistration(){
 
     async function handleRegistration(e){
         e.preventDefault();
-        const response = await fetch("http://localhost:3000/api/user/registration",{
+        const response = await fetch(`${BACKEND_URL}/api/auth/user/registration`,{
             method:"POST",
             headers: {"content-type": "application/json"},
             body: JSON.stringify({
