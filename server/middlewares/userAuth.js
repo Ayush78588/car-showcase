@@ -13,8 +13,9 @@ async function isUserAuth(req, res, next){
         const payload = jwt.verify(token, process.env.SECRET_KEY);
         const userData = await User.findOne({emailId: payload.emailId});
         req.user = userData;
+        
          next();
-         
+
     }catch(error){
         console.log(error.message);
         res.status(400).json({error: error.message});

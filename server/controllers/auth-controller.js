@@ -12,7 +12,7 @@ async function handleRegistration(req, res) {
 
         let existingUser = await User.findOne({ emailId });
         if (existingUser) {
-            return res.status(400).json("Account already exists");
+            return res.status(400).json({error: "Account already exists"});
         }
 
         const salt = await bcrypt.genSalt();
@@ -26,11 +26,11 @@ async function handleRegistration(req, res) {
             password: hashedPassword
         });
 
-        res.status(201).json("user registered");
+        res.status(201).json({msg: "user registered"});
 
     } catch (err) {
         console.log(err.message);
-        res.json(err.message);
+        res.status(500).json({error: "Internal server failure"});
     }
 }
 
@@ -58,10 +58,10 @@ async function handleLogin(req, res) {
             maxAge: 24 * 60 * 60 * 1000 // 1 day
         });
 
-        res.json({ msg: "Login Successfull, cookie sent", user: existingUser });
+        res.json({ msg: "Login Successfull", user: {fullName: existingUser.fullName, emailId: existingUser.emailId} });
     } catch (error) {
         console.log(error.message);
-        res.json({ error: error.message });
+        res.status(500).json({ error: "Internal server failure" });
 
     }
 
@@ -70,8 +70,6 @@ async function handleLogin(req, res) {
 
 
 function handleLogout(req, res) {
-
-    console.log('Running logout fxn.');
 
     res.clearCookie('accessToken', {
         httpOnly: true,

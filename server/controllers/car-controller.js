@@ -21,14 +21,14 @@ async function showCarDetails(req, res) {
 
 async function addCarDetails(req, res) {
     try {
+        
         const { name, model, price } = req.body;
 
-        const imgsrc = `http://localhost:3000/uploads/${req.file.filename}`;
-
+        const imgsrc = `${process.env.BACKEND_URL}/uploads/${req.file.filename}`;
 
         const newCar = await Car.create({ name, model, price, imgsrc });
-        console.log(999);
         res.status(201).json({ msg: "Car added" });
+        
     } catch (error) {
         console.error("Error:", error);
         res.status(500).json({ error: "Failed to add car" });
