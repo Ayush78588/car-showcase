@@ -53,7 +53,7 @@ async function handleLogin(req, res) {
         const token = jwt.sign({ emailId }, SECRET_KEY);
         res.cookie('accessToken', token, {
             httpOnly: true,
-            sameSite: 'Lax',
+            sameSite: 'none',
             secure: false,
             maxAge: 24 * 60 * 60 * 1000 // 1 day
         });
@@ -74,7 +74,7 @@ function handleLogout(req, res) {
     res.clearCookie('accessToken', {
         httpOnly: true,
         secure: false,
-        sameSite: 'Lax'
+        sameSite: 'none'
     });
     console.log('Cookie cleared');
 
