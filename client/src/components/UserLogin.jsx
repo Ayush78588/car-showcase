@@ -25,7 +25,7 @@ function UserLogin() {
                 headers:{"content-type":"application/json"},
                 credentials: "include"
             });
-            // console.log(response);
+            
             const data = await response.json();
             console.log(data);
             if(response.ok) {
@@ -38,9 +38,9 @@ function UserLogin() {
                 toast.error(data.error)
             }
 
-            // alert(data?.msg || data?.error)
+
         } catch(e) {
-            alert('Internal server error.');
+            toast.error('Internal server error.');
         }
     }
 
