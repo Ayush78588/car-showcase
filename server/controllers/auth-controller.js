@@ -54,7 +54,7 @@ async function handleLogin(req, res) {
         res.cookie('accessToken', token, {
             httpOnly: true,
             sameSite: 'none',
-            secure: false,
+            secure: true,
             maxAge: 24 * 60 * 60 * 1000 // 1 day
         });
 
@@ -73,7 +73,7 @@ function handleLogout(req, res) {
 
     res.clearCookie('accessToken', {
         httpOnly: true,
-        secure: false,
+        secure: true,
         sameSite: 'none'
     });
     console.log('Cookie cleared');
