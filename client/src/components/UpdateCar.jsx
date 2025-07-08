@@ -64,10 +64,11 @@ function UpdateCar() {
         <div className="user-form">
             <h1>Update car </h1>
             <form onSubmit={updateCarData}>
+                <label className="label">Car Name:</label>
                 <input type="text" value={name} onChange={(e) => setName(e.target.value)} required /><br />
-
+                <label className="label">Car Model:</label>
                 <input type="text" value={model} onChange={(e) => setModel(e.target.value)} required /><br />
-
+                <label className="label">Car Price:</label>
                 <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} required /><br />
 
                 <button type="submit">Update</button>

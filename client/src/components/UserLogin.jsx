@@ -48,8 +48,8 @@ function UserLogin() {
         <div className="user-form">
             <h1>LOGIN</h1>
             <form onSubmit={handleLogin} >
-                <input type="email" name='emailId' required placeholder="EmailId" value={emailId} onChange={(e) => { setEmailId(e.target.value) }} /> <br />
-                <input type="password" name="password" required placeholder="Password" value={password} onChange={(e) => { setPassword(e.target.value) }} /> <br />
+                <input type="email"  required placeholder="EmailId" value={emailId} onChange={(e) => { setEmailId(e.target.value) }} /> <br />
+                <input type="password"  required placeholder="Password" value={password} onChange={(e) => { setPassword(e.target.value) }} /> <br />
                 <button>submit</button> <br />
                 <Link className="link-in-form" to={'/user/registration'}>Register?</Link> <br />
                 <Link className="link-in-form" to={'/'}>Home?</Link>

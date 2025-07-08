@@ -255,3 +255,12 @@ nav ul {
   background-color: #007BFF; 
   color: white;              
 }
+
+.label {
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 4px;
+  color: #1a1a1a; 
+  font-weight: 500;
+  font-size: 15px;
+}
