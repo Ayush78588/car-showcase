@@ -1,13 +1,13 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
-import { UserContext } from "../contexts/UserContext";
 import toast, { Toaster } from 'react-hot-toast';
+import { Link, useNavigate } from "react-router-dom";
+import { UserContext } from "../contexts/UserContext";
 import { BACKEND_URL } from "../utils/constant";
-import { log } from "util";
 
 function Header() {
 
     const { user, setUser, isAuthenticated, setIsAuthenticated } = useContext(UserContext);
+    const navigate = useNavigate();
 
 
     async function handleLogout() {
@@ -17,13 +17,15 @@ function Header() {
                 credentials: "include"
             });
             console.log('Response came.....');
-            
+
             const data = await response.json();
             if (response.ok) {
                 console.log('Running response.ok segment');
                 toast.success(data.msg);
                 setUser(null);
                 setIsAuthenticated(false);
+                navigate('/');
+               
             } else {
                 toast.error(data?.error || 'Something went wrong.');
             }
@@ -41,6 +43,11 @@ function Header() {
             <ul>
                 <Link className="link" to={"/"}><li>Home</li></Link>
                 <Link className="link" to="/user/car/add"><li>AddCar</li></Link>
+                {
+                    isAuthenticated ?
+                        <Link className="link" to="/user/car/mycars"><li>MyCars</li></Link> : null
+                }
+
                 <Link className="link" to="/AboutUs"><li>AboutUs</li></Link>
 
                 {

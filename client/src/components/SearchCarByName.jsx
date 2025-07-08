@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import ShimmerUI from "./ShimmerUI";
 import CarCard from "./CarCard";
 import { BACKEND_URL } from "../utils/constant";
+import toast from 'react-hot-toast';
 
 
 
@@ -29,10 +30,18 @@ function SearchCarByName() {
     }
 
     async function fetchCarData() {
-        let response = (await (await fetch(`${BACKEND_URL}/api/car/cardetails`)).json());
-        console.log(response);
-        setFilteredCarData(response);
-        setCarData(response);
+        try {
+            let response = await fetch(`${BACKEND_URL}/api/car/cardetails`);
+            let data = await response.json();
+            if(response.ok){
+                setFilteredCarData(data);
+                setCarData(data,1 );
+            } else{
+                toast.error(data.error);
+            }
+        } catch(error){
+            toast.error("Internal server error");
+        }
     }
 
     useEffect(() => {
@@ -42,7 +51,7 @@ function SearchCarByName() {
 
     return (
         <div>
-            <div id="searchCont">
+            <div className="cars-cont">
                 <input className="search" type="text" value={carName} onChange={handleChange} placeholder="Search cars by Name" />
             </div>
 

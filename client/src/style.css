@@ -101,7 +101,7 @@ nav ul {
   transform: scale(1.03);
 }
 
-#searchCont {
+.cars-cont {
   display: flex;
   justify-content: center;
   gap: 10px;
@@ -241,4 +241,17 @@ nav ul {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+}
+
+#mycar-btn button{
+ 
+  margin: 10px 30px;
+  padding: 1px 6px;  
+  cursor: pointer;
+
+}
+
+#mycar-btn button:hover {
+  background-color: #007BFF; 
+  color: white;              
 }

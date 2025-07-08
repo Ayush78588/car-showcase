@@ -10,6 +10,8 @@ import { useEffect, useState } from "react";
 import ProtectedRoute from "./components/ProtectedRoute";
 import PublicRoute from "./components/PublicRoute"
 import { BACKEND_URL } from "./utils/constant";
+import MyCars from "./components/MyCars";
+import UpdateCar from "./components/UpdateCar";
 
 
 
@@ -26,8 +28,6 @@ function App() {
         credentials: "include"
       })
       const data = await res.json();
-
-      console.log(data);
       
       if(res.ok) {
         setUser(data.user);
@@ -55,9 +55,11 @@ function App() {
             <Route path="/" element={<SearchCarByName />} />
             <Route path="/user/car/add" element={<ProtectedRoute><AddCar /></ProtectedRoute>} />
             <Route path="/AboutUs" element={<AboutUs />} />
+            <Route path="/user/car/mycars" element={<ProtectedRoute><MyCars /></ProtectedRoute>} />
           </Route>
           <Route path="/user/login" element={<PublicRoute><UserLogin /></PublicRoute>} />
           <Route path="/user/registration" element={<PublicRoute><UserRegistration /></PublicRoute>} />
+          <Route path="/user/car/:id/edit" element={<ProtectedRoute><UpdateCar/></ProtectedRoute>}/>
         </Routes>
       </BrowserRouter>
     </UserContext.Provider>
