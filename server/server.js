@@ -6,6 +6,17 @@ const carRoutes = require('./routes/car-routes');
 const authRoutes = require("./routes/auth-routes");
 const cookieParser = require('cookie-parser');
 const PORT = process.env.PORT || 3000;
+const fs = require('fs');
+const path = require('path');
+
+
+
+const uploadDir = path.join(__dirname, 'uploads');
+
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir);
+}
+
 
 
 
