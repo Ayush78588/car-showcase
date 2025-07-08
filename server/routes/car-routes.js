@@ -20,5 +20,3 @@ router.put("/:id/update", isUserAuth, carController.updateMyCar);
 router.get("/:id", carController.getCarById);
 
 module.exports = router;
-
-9
