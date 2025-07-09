@@ -1,4 +1,4 @@
-# 🚗 Car Showcase
+# 🚗 Car Showcase: Full Stack Car Listing App
 
 A full-stack web application where users can **browse**, **add**, **edit**, **delete** and **search car listings**. Built with the **MERN stack** (MongoDB, Express, React, Node.js), it offers a smooth UI, user authentication, and media upload support.
 
